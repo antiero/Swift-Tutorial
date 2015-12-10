@@ -37,7 +37,7 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     
     func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
         
-        let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier) as UITableViewCell
+        let cell: UITableViewCell = tableView.dequeueReusableCellWithIdentifier(kCellIdentifier)! as UITableViewCell
         
         let album = self.albums[indexPath.row]
         cell.textLabel?.text = album.title
@@ -56,27 +56,30 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         
         if( image == nil ) {
             // If the image does not exist, we need to download it
-            var imgURL: NSURL = NSURL(string: urlString)
+            let imgURL: NSURL = NSURL(string: urlString)!
             
             // Download an NSData representation of the image at the URL
             let request: NSURLRequest = NSURLRequest(URL: imgURL)
-            NSURLConnection.sendAsynchronousRequest(request, queue: NSOperationQueue.mainQueue(), completionHandler: {(response: NSURLResponse!,data: NSData!,error: NSError!) -> Void in
+            let session = NSURLSession.sharedSession()
+            let task = session.dataTaskWithRequest(request) { (data, response, error) -> Void in
                 if error == nil {
-                    image = UIImage(data: data)
+                    image = UIImage(data: data!)
                     
-                    // Store the image in to our cache
-                    self.imageCache[urlString] = image
-                    dispatch_async(dispatch_get_main_queue(), {
-                        if let cellToUpdate = tableView.cellForRowAtIndexPath(indexPath) {
-                            cellToUpdate.imageView?.image = image
-                        }
-                    })
+                // Store the image in to our cache
+                self.imageCache[urlString] = image
+                dispatch_async(dispatch_get_main_queue(), {
+                    if let cellToUpdate = tableView.cellForRowAtIndexPath(indexPath) {
+                        cellToUpdate.imageView?.image = image
+                    }
+                })
                 }
+
                 else {
-                    println("Error: \(error.localizedDescription)")
+                    print("Error: ", error!.localizedDescription)
                 }
-            })
-            
+
+            }
+            task.resume()
         }
         else {
             dispatch_async(dispatch_get_main_queue(), {
@@ -100,14 +103,14 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
     
     
     override func prepareForSegue(segue: UIStoryboardSegue, sender: AnyObject?) {
-        var detailsViewController: DetailsViewController = segue.destinationViewController as DetailsViewController
-        var albumIndex = appsTableView!.indexPathForSelectedRow()!.row
-        var selectedAlbum = self.albums[albumIndex]
+        let detailsViewController: DetailsViewController = segue.destinationViewController as! DetailsViewController
+        let albumIndex = appsTableView!.indexPathForSelectedRow!.row
+        let selectedAlbum = self.albums[albumIndex]
         detailsViewController.album = selectedAlbum
     }
     
     func didReceiveAPIResults(results: NSDictionary) {
-        var resultsArr: NSArray = results["results"] as NSArray
+        let resultsArr: NSArray = results["results"] as! NSArray
         dispatch_async(dispatch_get_main_queue(), {
             self.albums = Album.albumsWithJSON(resultsArr)
             self.appsTableView!.reloadData()

@@ -23,20 +23,23 @@ class APIController {
     func get(path: String) {
         let url = NSURL(string: path)
         let session = NSURLSession.sharedSession()
-        let task = session.dataTaskWithURL(url, completionHandler: {data, response, error -> Void in
-            println("Task completed")
+        let task = session.dataTaskWithURL(url!, completionHandler: {data, response, error -> Void in
+            print("Task completed")
             if(error != nil) {
                 // If there is an error in the web request, print it to the console
-                println(error.localizedDescription)
+                print(error!.localizedDescription)
             }
-            var err: NSError?
-            var jsonResult = NSJSONSerialization.JSONObjectWithData(data, options: NSJSONReadingOptions.MutableContainers, error: &err) as NSDictionary
-            if(err != nil) {
+
+            do {
+              let jsonResult = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
+              //let results: NSArray = jsonResult["results"] as! NSArray
+              self.delegate.didReceiveAPIResults(jsonResult) // THIS IS THE NEW LINE!!
+            } catch {
                 // If there is an error parsing JSON, print it to the console
-                println("JSON Error \(err!.localizedDescription)")
+                print("JSON Error!")
             }
-            let results: NSArray = jsonResult["results"] as NSArray
-            self.delegate.didReceiveAPIResults(jsonResult) // THIS IS THE NEW LINE!!
+          
+
         })
         task.resume()
     }
@@ -47,7 +50,7 @@ class APIController {
         let itunesSearchTerm = searchTerm.stringByReplacingOccurrencesOfString(" ", withString: "+", options: NSStringCompareOptions.CaseInsensitiveSearch, range: nil)
         
         // Now escape anything else that isn't URL-friendly
-        if let escapedSearchTerm = itunesSearchTerm.stringByAddingPercentEscapesUsingEncoding(NSUTF8StringEncoding) {
+        if let escapedSearchTerm = itunesSearchTerm.stringByAddingPercentEncodingWithAllowedCharacters(.URLHostAllowedCharacterSet()) {
             let urlPath = "https://itunes.apple.com/search?term=\(escapedSearchTerm)&media=music&entity=album"
             get(urlPath)
         }
