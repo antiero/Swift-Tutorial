@@ -51,8 +51,7 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         
         // Check our image cache for the existing key. This is just a dictionary of UIImages
         //var image: UIImage? = self.imageCache.valueForKey(urlString) as? UIImage
-        var image = self.imageCache[urlString]
-        
+        var image = self.imageCache[urlString] as UIImage!
         
         if( image == nil ) {
             // If the image does not exist, we need to download it

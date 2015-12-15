@@ -54,6 +54,9 @@ class Album {
                         if priceFloat != nil {
                             price = "$"+nf.stringFromNumber(priceFloat!)!
                         }
+                        else {
+                          price = ""
+                        }
                     }
                 }
                 
@@ -67,7 +70,15 @@ class Album {
                 }
                 
                 let collectionId = result["collectionId"] as? Int
-                
+              
+              
+                print("price: ", price)
+                print("thumbnailURL: ", thumbnailURL)
+                print("imageURL: ", imageURL)
+                print("itemURL: ", itemURL)
+                print("artistURL: ", artistURL)
+                print("collectionId: ", collectionId)
+
                 let newAlbum = Album(name: name!, price: price!, thumbnailImageURL: thumbnailURL, largeImageURL: imageURL, itemURL: itemURL!, artistURL: artistURL, collectionId: collectionId!)
                 albums.append(newAlbum)
                 
