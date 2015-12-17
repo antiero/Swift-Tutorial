@@ -50,8 +50,7 @@ class SearchResultsViewController: UIViewController, UITableViewDataSource, UITa
         let urlString = album.thumbnailImageURL
         
         // Check our image cache for the existing key. This is just a dictionary of UIImages
-        //var image: UIImage? = self.imageCache.valueForKey(urlString) as? UIImage
-        var image = self.imageCache[urlString] as UIImage!
+        var image = self.imageCache[urlString]
         
         if( image == nil ) {
             // If the image does not exist, we need to download it

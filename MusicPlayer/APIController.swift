@@ -28,11 +28,15 @@ class APIController {
             if(error != nil) {
                 // If there is an error in the web request, print it to the console
                 print(error!.localizedDescription)
+              
+                showErrorAlert(error!.localizedDescription)
+
+                // Bail here because we can't process the data any further
+                return
             }
 
             do {
               let jsonResult = try NSJSONSerialization.JSONObjectWithData(data!, options: NSJSONReadingOptions.MutableContainers) as! NSDictionary
-              //let results: NSArray = jsonResult["results"] as! NSArray
               self.delegate.didReceiveAPIResults(jsonResult) // THIS IS THE NEW LINE!!
             } catch {
                 // If there is an error parsing JSON, print it to the console

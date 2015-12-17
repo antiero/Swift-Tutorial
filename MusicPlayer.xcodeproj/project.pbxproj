@@ -19,6 +19,7 @@
 		0270482F19C8F43500FDA1C5 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0270482E19C8F43500FDA1C5 /* DetailsViewController.swift */; };
 		0270483119C8F6D000FDA1C5 /* Track.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0270483019C8F6D000FDA1C5 /* Track.swift */; };
 		0270483519C8F80000FDA1C5 /* TrackCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0270483419C8F80000FDA1C5 /* TrackCell.swift */; };
+		ED63ECE81C21694A001ACFC3 /* ErrorAlerter.swift in Sources */ = {isa = PBXBuildFile; fileRef = ED63ECE71C21694A001ACFC3 /* ErrorAlerter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +49,7 @@
 		0270482E19C8F43500FDA1C5 /* DetailsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		0270483019C8F6D000FDA1C5 /* Track.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Track.swift; sourceTree = "<group>"; };
 		0270483419C8F80000FDA1C5 /* TrackCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = TrackCell.swift; sourceTree = "<group>"; };
+		ED63ECE71C21694A001ACFC3 /* ErrorAlerter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ErrorAlerter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +94,7 @@
 				0270482A19C8EC3000FDA1C5 /* Blank52.png */,
 				0270480819C8E08B00FDA1C5 /* AppDelegate.swift */,
 				0270480A19C8E08B00FDA1C5 /* SearchResultsViewController.swift */,
+				ED63ECE71C21694A001ACFC3 /* ErrorAlerter.swift */,
 				0270480C19C8E08B00FDA1C5 /* Main.storyboard */,
 				0270480F19C8E08B00FDA1C5 /* Images.xcassets */,
 				0270481119C8E08B00FDA1C5 /* LaunchScreen.xib */,
@@ -237,6 +240,7 @@
 				0270480919C8E08B00FDA1C5 /* AppDelegate.swift in Sources */,
 				0270482919C8E2E700FDA1C5 /* APIController.swift in Sources */,
 				0270482D19C8F35700FDA1C5 /* Album.swift in Sources */,
+				ED63ECE81C21694A001ACFC3 /* ErrorAlerter.swift in Sources */,
 				0270482F19C8F43500FDA1C5 /* DetailsViewController.swift in Sources */,
 				0270483119C8F6D000FDA1C5 /* Track.swift in Sources */,
 			);
